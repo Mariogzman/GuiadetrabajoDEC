@@ -1,0 +1,41 @@
+section .data
+    num1 dw 10        
+    num2 dw 4         
+    num3 dw 3         
+    result dw 0       
+
+    msg db 'Resultado: ', 0
+    msg_len equ $ - msg
+
+section .bss
+
+section .text
+    global _start
+
+_start:
+   
+    mov ax, [num1]     
+    sub ax, [num2]     
+    sub ax, [num3]     
+
+    mov [result], ax   
+
+    mov edx, msg_len   
+    mov ecx, msg       
+    mov ebx, 1         
+    mov eax, 4         
+    int 0x80           
+
+    mov ax, [result]   
+    add ax, '0'        
+    mov [result], ax   
+
+    mov edx, 2         
+    mov ecx, result    
+    mov ebx, 1         
+    mov eax, 4        
+    int 0x80           
+
+    mov eax, 1        
+    xor ebx, ebx      
+    int 0x80         
